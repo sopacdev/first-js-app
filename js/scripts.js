@@ -1,3 +1,3 @@
 alert( 'Hello World' )
 let favoriteFood = 'Smashburger'
-document.write(favoriteFood
+document.write(favoriteFood)
