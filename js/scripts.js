@@ -41,8 +41,12 @@ let pokemonRepository = (function () {
     return pokemonList;
   }
 
+  function search(name){
+    return pokemonList.filter((pokemon) => pokemon.name === name);
+  }
   return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    search: search
   };
 })();
