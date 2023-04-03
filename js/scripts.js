@@ -29,12 +29,15 @@ let pokemonRepository = (function () {
       console.log("invalid pokemon")
     }
   }
+  
   function getAll() {
     return repository;
   }
+  
   function search(name){
     return repository.filter((pokemon) => pokemon.name === name);
   }
+  
   function addListItem(pokemon){
     let pokemonList = document.querySelector(".pokemon-list");
     let listPokemon = document.createElement("li");
@@ -43,7 +46,7 @@ let pokemonRepository = (function () {
     listPokemon.appendChild(button);
     pokemonList.appendChild(listPokemon);
     
-    button.addEventListener('click' function (){
+    button.addEventListener("click" , function (){
       showDetails(pokemon)
     });
   }
@@ -66,7 +69,7 @@ pokemonRepository.add({
   type: ["electricity", "ground"]
 });
 
-console.log(pokemonRepository.search('Cosmog'))
+console.log(pokemonRepository.getAll('Cosmog'))
 
 pokemonRepository.getAll().forEach(function (pokemon) {
   pokemonRepository.addListItem(pokemon);
