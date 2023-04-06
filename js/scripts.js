@@ -1,76 +1,84 @@
 let pokemonRepository = (function () {
-  let repository = [
-    {
-      name: "Pikachu", 
-      height: 5, 
-      type: ["electricity", "ground"]
-    },
-    {
-      name: "Squirtle", 
-      height: 6, 
-      type: ["water", "ground"]
-    },
-    {
-      name: "Bulbasaur", 
-      height: 7, 
-      type: ["grass", "poison", "ground"]
-    },
-  ];
-
+  let pokemonList = [];
+  let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
+  
   function add(pokemon) {
     if (
       typeof pokemon === "object" &&
-      "name" in pokemon &&
-      "height" in pokemon &&
-      "types" in pokemon
+      "name" in pokemon
     ) {
-      repository.push(pokemon);
+      pokemonList.push(pokemon);
     } else {
-      console.log("invalid pokemon")
+      console.log("invalid pokemon");
     }
   }
-  
   function getAll() {
-    return repository;
+    return pokemonList;
   }
-  
-  function search(name){
-    return repository.filter((pokemon) => pokemon.name === name);
-  }
-  
-  function addListItem(pokemon){
+  // function search(name){
+  //   return pokemonList.filter((pokemon) => pokemon.name === name);
+  // }
+  function addListItem(pokemon) {
     let pokemonList = document.querySelector(".pokemon-list");
     let listPokemon = document.createElement("li");
     let button = document.createElement("button");
     button.innerText = pokemon.name;
     listPokemon.appendChild(button);
     pokemonList.appendChild(listPokemon);
-    
-    button.addEventListener("click" , function (){
+    button.addEventListener("click" , function (event) {
       showDetails(pokemon)
     });
   }
 
+  function loadList() {
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+        name: item.name,
+        detailsUrl: item.url
+      };
+      add(pokemon);
+      console.log(pokemon)
+      });
+    }).catch(function (e) {
+      console.error(e)
+    })
+  }
+
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) { 
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.type;
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
   function showDetails(pokemon) {
+    pokemonRepository.loadDetails(pokemon)
     console.log(pokemon);
   }
 
   return {
     add: add,
     getAll: getAll,
-    search: search,
-    addListItem: addListItem
+    addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+    showDetails: showDetails
   };
 })();
 
-pokemonRepository.add({
-  name: "Cosmog",
-  height: 5,
-  type: ["electricity", "ground"]
+console.log(pokemonRepository.getAll());
+
+pokemonRepository.loadList().then(function() {
+  pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  });
 });
-
-console.log(pokemonRepository.getAll('Cosmog'))
-
-pokemonRepository.getAll().forEach(function (pokemon) {
-  pokemonRepository.addListItem(pokemon);
-})
