@@ -3,14 +3,31 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/styles.css" rel="stylesheet" type="text/css">
     <title>First JS App!</title>
   </head>
+  
   <body>
     <h1>Pokedex</h1>
     <ul class="pokemon-list"></ul>
+    
+    <div id="modal-container" class="modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true"></div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            
+            <h5 class="modal-title"></h5>
+              <div id="button-container"></div>
+              <div class="modal-body"></div>
+              <p class="image-container"></p>
+              <p class="height"></p>
+        
+          </div>
+      </div>
+    </div>
     <script src="js/promise-polyfills.js"></script>
     <script src="js/scripts.js"></script>
 
-
   </body>
+
 </html>
