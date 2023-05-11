@@ -12,6 +12,7 @@ let pokemonRepository = (function () {
       console.log("invalid pokemon");
     }
   }
+  
   function getAll() {
     return pokemonList;
   }
@@ -61,17 +62,56 @@ let pokemonRepository = (function () {
   }
 
   function showDetails(pokemon) {
-    pokemonRepository.loadDetails(pokemon)
-    console.log(pokemon);
+    loadDetails(pokemon).then(function () {
+      showModal(pokemon);
+    });
+  }
+
+  function showModal(pokemon) {
+    pokemonRepository.loadDetails(pokemon).then(function () {
+      let modalTitle = document.querySelector(".modal-title");
+      modalTitle.innertext = pokemon.name;
+      let imageContainer = document.querySelector(".image-container");
+      
+      let pokemonImage = document.createElement("img");
+      pokemonImage.src = pokemon.imageUrl;
+      pokemonImage.classList.add("pokemon-image");
+      imageContainer.innerHTML = "";
+      imageContainer.append(pokemonImage);
+      
+      let pokemonHeight = document.querySelector(".height");
+      pokemonHeight.innerText = "Height: " + pokemon.height;
+      
+      let modal = document.querySelector(".modal")
+      modal.classList.add("modal-is-visible");
+      modal.classList.remove("modal");
+      
+      let buttonContainer = document.querySelector("#button-container");
+      
+      let modalCloseButton = document.createElement("button");
+      modalCloseButton.classList.add("btn");
+      modalCloseButton.classList.add("modal-close");
+      modalCloseButton.innerText = "Close";
+      buttonContainer.innerHTML = "";
+      buttonContainer.append(modalCloseButton);
+      modalCloseButton.addEventListener("click", closeModal);
+    });
+
+    function closeModal() {
+      let modalContainer = document.querySelector("#modal-containter");
+      modalContainer.classList.remove("modal-is-visible");
+      modalContainer.classList.add("modal");
+      modalCloseButton.innerHTML = "";
+    }
   }
 
   return {
-    add: add,
     getAll: getAll,
     addListItem: addListItem,
     loadList: loadList,
     loadDetails: loadDetails,
-    showDetails: showDetails
+    showDetails: showDetails,
+    showModal: showModal,
   };
 })();
 
