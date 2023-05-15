@@ -63,12 +63,12 @@ let pokemonRepository = (function () {
 
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
+      console.log(pokemon)
       showModal(pokemon);
     });
   }
 
   function showModal(pokemon) {
-    pokemonRepository.loadDetails(pokemon).then(function () {
       let modalTitle = document.querySelector(".modal-title");
       modalTitle.innertext = pokemon.name;
       let imageContainer = document.querySelector(".image-container");
@@ -86,32 +86,23 @@ let pokemonRepository = (function () {
       modal.classList.add("modal-is-visible");
       modal.classList.remove("modal");
       
-      let buttonContainer = document.querySelector("#button-container");
-      
-      let modalCloseButton = document.createElement("button");
+      let modalCloseButton = document.querySelector("#button");
       modalCloseButton.classList.add("btn");
       modalCloseButton.classList.add("modal-close");
       modalCloseButton.innerText = "Close";
-      buttonContainer.innerHTML = "";
-      buttonContainer.append(modalCloseButton);
       modalCloseButton.addEventListener("click", closeModal);
-    });
+    }
 
     function closeModal() {
       let modalContainer = document.querySelector("#modal-containter");
       modalContainer.classList.remove("modal-is-visible");
       modalContainer.classList.add("modal");
-      modalCloseButton.innerHTML = "";
     }
-  }
 
   return {
     getAll: getAll,
     addListItem: addListItem,
     loadList: loadList,
-    loadDetails: loadDetails,
-    showDetails: showDetails,
-    showModal: showModal,
   };
 })();
 
