@@ -42,3 +42,8 @@ float: right;
     height: 250px;
     width: 250px;
 }
+
+.pokemon-list{
+    text-align: center;
+    list-style: none;
+  }  
