@@ -70,9 +70,9 @@ let pokemonRepository = (function () {
 
   function showModal(pokemon) {
       let modalTitle = document.querySelector(".modal-title");
-      modalTitle.innertext = pokemon.name;
-      let imageContainer = document.querySelector(".image-container");
+      modalTitle.innerText = pokemon.name;
       
+      let imageContainer = document.querySelector(".image-container");
       let pokemonImage = document.createElement("img");
       pokemonImage.src = pokemon.imageUrl;
       pokemonImage.classList.add("pokemon-image");
@@ -82,9 +82,17 @@ let pokemonRepository = (function () {
       let pokemonHeight = document.querySelector(".height");
       pokemonHeight.innerText = "Height: " + pokemon.height;
       
+      let modalContainer = document.querySelector("#modal-container");
+      modalContainer.classList.add("modal-is-visible");
+
       let modal = document.querySelector(".modal")
       modal.classList.add("modal-is-visible");
       modal.classList.remove("modal");
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      });
       
       let modalCloseButton = document.querySelector("#button");
       modalCloseButton.classList.add("btn");
@@ -94,9 +102,14 @@ let pokemonRepository = (function () {
     }
 
     function closeModal() {
-      let modalContainer = document.querySelector("#modal-containter");
+      let modalContainer = document.querySelector("#modal-container");
       modalContainer.classList.remove("modal-is-visible");
       modalContainer.classList.add("modal");
+      document.removeEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeModal();
+        }
+      })
     }
 
   return {
