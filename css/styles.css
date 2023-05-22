@@ -1,6 +1,8 @@
 html, 
-body {
+h1, body {
   font-family: Arial, sans-serif;
+  text-align: center;
+  list-style: center;
 }
 
 .modal-container {
@@ -22,16 +24,16 @@ body {
   text-align: center;
 }
 
-/* .modal {
+.modal {
   margin: auto;
   display: inline-block;
   box-sizing: border-box;
   background: #fff;
   padding: 15px;
-  width: 100%;
-  max-width: 250px;
+  width: 50%;
+  height: 50%;
   text-align: left;
-} */
+}
 
 .image-container {
 float: right;
