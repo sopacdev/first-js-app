@@ -24,7 +24,7 @@ h1, body {
   text-align: center;
 }
 
-.modal {
+.modal-title {
   margin: auto;
   display: inline-block;
   box-sizing: border-box;
