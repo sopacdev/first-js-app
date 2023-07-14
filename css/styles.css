@@ -1,8 +1,9 @@
 html, 
 h1, body {
-  font-family: Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace, sans-serif;
   text-align: center;
   list-style: center;
+  background-color: #3843e4;
 }
 
 .modal-container {
