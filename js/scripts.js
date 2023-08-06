@@ -30,10 +30,6 @@ let pokemonRepository = (function () {
     pokemonList.appendChild(listPokemon);
   }
 
-  function getAll() {
-    return pokemonList;
-  }
-
   function loadList() {
     return fetch(apiUrl)
       .then(function (response) {
